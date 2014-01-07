@@ -1,5 +1,7 @@
 module Menu ( Menu (..)
             , Item (..)
+            , new
+            , addItem
             , doMenu
             ) where
 
@@ -32,6 +34,13 @@ data Item =
 instance Show Item where
   show = description
 
+new :: String -> Menu
+new title = Menu title Map.empty
+
+addItem :: Menu -> Char -> String -> IO () -> Menu
+addItem menu ch desc act =
+  menu { items = Map.insert ch (Item desc act) (items menu) }
+
 doMenu :: Menu -> IO ()
 doMenu menu = do
   hSetBuffering stdout NoBuffering
@@ -44,7 +53,7 @@ menuPrompt menu = do
   sel <- getLine
   case sel of
     (x : _) ->
-      case lookup (toUpper x) (items menu) of
+      case Map.lookup (toUpper x) (items menu) of
         Just item -> action item
         _         -> menuPrompt menu
     _ -> do
