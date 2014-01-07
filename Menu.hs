@@ -16,11 +16,11 @@ instance Show Menu where
     "\n*** " ++ title menu ++ " ***\n" ++ showItems (menuItems menu)
 
 showItems :: Map Char Item -> String
-showItems items =
+showItems =
   Map.foldrWithKey 
   (\k x r ->
     k : ") " ++ show x ++ '\n' : r
-  ) "" items
+  ) ""
   
 data Item =
   Item { description :: String
