@@ -28,7 +28,7 @@ data Item =
        }
   
 instance Show Item where
-  show item = description item
+  show = description
 
 doMenu :: Menu -> IO ()
 doMenu = undefined
