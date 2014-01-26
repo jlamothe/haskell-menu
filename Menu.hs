@@ -34,7 +34,7 @@ data Menu =
 
 instance Show Menu where
   show menu =
-    "\n*** " ++ title menu ++ " ***\n" ++ showItems (items menu)
+    "\n*** " ++ title menu ++ " ***\n" ++ showItems (items menu) ++ "\n"
 
 showItems :: Map Char Item -> String
 showItems =
