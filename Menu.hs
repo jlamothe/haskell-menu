@@ -18,8 +18,7 @@
 
 module Menu ( Menu (..)
             , Item (..)
-            , new
-            , addItem
+            , buildMenu
             , doMenu
             ) where
 
@@ -52,12 +51,11 @@ data Item =
 instance Show Item where
   show = description
 
-new :: String -> Menu
-new title = Menu title Map.empty
-
-addItem :: Menu -> Char -> String -> IO () -> Menu
-addItem menu ch desc act =
-  menu { items = Map.insert ch (Item desc act) (items menu) }
+buildMenu :: String -> [(Char, Item)] -> Menu
+buildMenu title items =
+  Menu { title = title
+       , items = Map.fromList items
+       }
 
 doMenu :: Menu -> IO ()
 doMenu menu = do
