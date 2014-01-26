@@ -18,8 +18,8 @@
 
 module Menu ( Menu (..)
             , Item (..)
-            , buildMenu
-            , doMenu
+            , build
+            , execute
             ) where
 
 import Data.Char
@@ -51,27 +51,27 @@ data Item a =
 instance Show (Item a) where
   show = description
 
-buildMenu :: String -> [(Char, (Item a))] -> Menu a
-buildMenu title items =
+build :: String -> [(Char, Item a)] -> Menu a
+build title items =
   Menu { title = title
        , items = Map.fromList items
        }
 
-doMenu :: Menu a -> IO a
-doMenu menu = do
+execute :: Menu a -> IO a
+execute menu = do
   hSetBuffering stdout NoBuffering
   putStr $ show menu
-  menuPrompt menu
+  prompt menu
 
-menuPrompt :: Menu a -> IO a
-menuPrompt menu = do
+prompt :: Menu a -> IO a
+prompt menu = do
   putStr "Please make a selection: "
   sel <- getLine
   case sel of
     (x : _) ->
       case Map.lookup (toUpper x) (items menu) of
         Just item -> action item
-        _         -> menuPrompt menu
+        _         -> prompt menu
     _ -> do
       putStrLn "Invalid Selection"
-      menuPrompt menu
+      prompt menu
