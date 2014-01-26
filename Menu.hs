@@ -27,43 +27,43 @@ import Data.Map (Map)
 import qualified Data.Map as Map
 import System.IO
 
-data Menu =
+data Menu a =
   Menu { title :: String
-       , items :: Map Char Item
+       , items :: Map Char (Item a)
        }
 
-instance Show Menu where
+instance Show (Menu a) where
   show menu =
     "\n*** " ++ title menu ++ " ***\n" ++ showItems (items menu) ++ "\n"
 
-showItems :: Map Char Item -> String
+showItems :: Map Char (Item a) -> String
 showItems =
   Map.foldrWithKey
   (\k x r ->
     k : ") " ++ show x ++ '\n' : r
   ) ""
 
-data Item =
+data Item a =
   Item { description :: String
-       , action      :: IO ()
+       , action      :: IO a
        }
 
-instance Show Item where
+instance Show (Item a) where
   show = description
 
-buildMenu :: String -> [(Char, Item)] -> Menu
+buildMenu :: String -> [(Char, (Item a))] -> Menu a
 buildMenu title items =
   Menu { title = title
        , items = Map.fromList items
        }
 
-doMenu :: Menu -> IO ()
+doMenu :: Menu a -> IO a
 doMenu menu = do
   hSetBuffering stdout NoBuffering
   putStr $ show menu
   menuPrompt menu
 
-menuPrompt :: Menu -> IO ()
+menuPrompt :: Menu a -> IO a
 menuPrompt menu = do
   putStr "Please make a selection: "
   sel <- getLine
