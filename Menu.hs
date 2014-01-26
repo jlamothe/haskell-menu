@@ -20,6 +20,7 @@ module Menu ( Menu (..)
             , Item (..)
             , build
             , execute
+            , addItem
             ) where
 
 import Data.Char
@@ -62,6 +63,10 @@ execute menu = do
   hSetBuffering stdout NoBuffering
   putStr $ show menu
   prompt menu
+
+addItem :: Char -> Item a -> Menu a -> Menu a
+addItem ch item menu =
+  menu { items = Map.insert ch item $ items menu }
 
 prompt :: Menu a -> IO a
 prompt menu = do
