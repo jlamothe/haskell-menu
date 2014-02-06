@@ -16,7 +16,7 @@
 -- License along with this program.  If not, see
 -- <http://www.gnu.org/licenses/>.
 
-module Menu ( Menu (..)
+module System.IO.Menu ( Menu (..)
             , Item (..)
             , build
             , execute

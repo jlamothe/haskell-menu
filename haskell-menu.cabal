@@ -2,7 +2,7 @@
 -- documentation, see http://haskell.org/cabal/users-guide/
 
 name:                haskell-menu
-version:             0.1.0
+version:             0.1
 synopsis:            A simple menu system for Haskell programs
 -- description:         
 homepage:            https://github.com/jlamothe/haskell-menu
@@ -11,11 +11,11 @@ license-file:        LICENSE
 author:              Jonathan Lamothe
 maintainer:          jonathan@jlamothe.net
 -- copyright:           
--- category:            
+category:            System
 build-type:          Simple
 cabal-version:       >=1.8
 
 library
-  exposed-modules:     Menu
+  exposed-modules:     System.IO.Menu
   -- other-modules:       
   build-depends:       base >=4.5 && < 5.0, containers >=0.5 && < 1.0
