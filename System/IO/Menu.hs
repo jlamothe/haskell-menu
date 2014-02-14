@@ -60,7 +60,6 @@ build title items =
 
 execute :: Menu a -> IO a
 execute menu = do
-  hSetBuffering stdout NoBuffering
   putStr $ show menu
   prompt menu
 
@@ -70,13 +69,17 @@ addItem ch item menu =
 
 prompt :: Menu a -> IO a
 prompt menu = do
+  inBufMode <- hGetBuffering stdin
+  outBufMode <- hGetBuffering stdout
+  hSetBuffering stdin NoBuffering
+  hSetBuffering stdout NoBuffering
   putStr "Please make a selection: "
-  sel <- getLine
-  case sel of
-    (x : _) ->
-      case Map.lookup (toUpper x) (items menu) of
-        Just item -> action item
-        _         -> prompt menu
-    _ -> do
-      putStrLn "Invalid Selection"
+  sel <- getChar
+  putChar '\n'
+  hSetBuffering stdin inBufMode
+  hSetBuffering stdout outBufMode
+  case Map.lookup (toUpper sel) (items menu) of
+    Just item -> action item
+    _         -> do
+      putStrLn "Invalid selection"
       prompt menu
