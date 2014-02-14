@@ -17,11 +17,11 @@
 -- <http://www.gnu.org/licenses/>.
 
 module System.IO.Menu ( Menu (..)
-            , Item (..)
-            , build
-            , execute
-            , addItem
-            ) where
+                      , Item (..)
+                      , build
+                      , execute
+                      , addItem
+                      ) where
 
 import Data.Char
 import Data.Map (Map)
