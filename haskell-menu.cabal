@@ -9,7 +9,7 @@ homepage:            https://github.com/jlamothe/haskell-menu
 license:             LGPL-3
 license-file:        LICENSE
 author:              Jonathan Lamothe
-maintainer:          jonathan@jlamothe.net
+maintainer:          jlamothe1980@gmail.com
 -- copyright:           
 category:            System
 build-type:          Simple
